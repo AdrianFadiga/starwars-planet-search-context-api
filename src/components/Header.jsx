@@ -1,7 +1,8 @@
 import { Button, Form } from 'react-bootstrap';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import MyContext from '../context/MyContext';
 import { filterPlanets } from '../helpers';
+import Filters from './Filters';
 
 function Header() {
   const {
@@ -9,7 +10,6 @@ function Header() {
       setNameFilter,
       filters: { filterByNumericValues },
       setFilters,
-      planets,
       filteredPlanets,
       setFilteredPlanets,
     },
@@ -17,7 +17,8 @@ function Header() {
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
-  const columnOptions = ['population', 'orbital_period', 'diameter', 'rotation_period', 'surface_water'];
+  const [columnOptions, setColumnOptions] = useState(['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water']);
   const operators = ['maior que', 'menor que', 'igual a'];
 
   const handleClick = () => {
@@ -26,7 +27,12 @@ function Header() {
         { column, comparison, value }],
     });
     setFilteredPlanets(filterPlanets(filteredPlanets, { column, comparison, value }));
+    setColumnOptions(columnOptions.filter((c) => c !== column));
   };
+
+  useEffect(() => {
+    setColumn(columnOptions[0]);
+  }, [columnOptions]);
 
   return (
     <section className="headerForm">
@@ -64,6 +70,9 @@ function Header() {
           Filter
         </Button>
       </Form>
+      {filterByNumericValues.map((filter) => (
+        <Filters filter={filter} key={{ column }} />
+      ))}
     </section>
   );
 }
