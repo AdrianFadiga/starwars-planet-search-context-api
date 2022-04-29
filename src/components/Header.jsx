@@ -10,8 +10,8 @@ function Header() {
       setNameFilter,
       filters: { filterByNumericValues },
       setFilters,
-      filteredPlanets,
       setFilteredPlanets,
+      planets,
     },
   } = useContext(MyContext);
   const [column, setColumn] = useState('population');
@@ -26,9 +26,12 @@ function Header() {
       filterByNumericValues: [...filterByNumericValues,
         { column, comparison, value }],
     });
-    setFilteredPlanets(filterPlanets(filteredPlanets, { column, comparison, value }));
     setColumnOptions(columnOptions.filter((c) => c !== column));
   };
+
+  useEffect(() => {
+    setFilteredPlanets(filterPlanets(planets, filterByNumericValues));
+  }, [filterByNumericValues]);
 
   useEffect(() => {
     setColumn(columnOptions[0]);
@@ -71,7 +74,12 @@ function Header() {
         </Button>
       </Form>
       {filterByNumericValues.map((filter) => (
-        <Filters filter={filter} key={{ column }} />
+        <Filters
+          filter={filter}
+          key={{ column }}
+          columnOptions={columnOptions}
+          setColumnOptions={setColumnOptions}
+        />
       ))}
     </section>
   );
