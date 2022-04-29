@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-constructed-context-values */
 import React, { useState, useEffect } from 'react';
 import MyContext from './MyContext';
 import { fetchPlanets } from '../services';

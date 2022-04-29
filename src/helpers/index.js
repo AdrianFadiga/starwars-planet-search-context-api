@@ -7,3 +7,8 @@ export const defineComparison = (planets, filterObj) => {
 
 export const filterPlanets = (planets, filterByNumericValues) => filterByNumericValues
   .reduce((acc, curr) => defineComparison(acc, curr), planets);
+
+export const orderPlanets = (planets, column, sort) => {
+  if (sort === 'Ascendent') return planets.sort((a, b) => Number(a[column]) - Number(b[column]));
+  return planets.sort((a, b) => Number(b[column]) - Number(a[column]));
+};

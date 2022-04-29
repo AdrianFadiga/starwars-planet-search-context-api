@@ -1,7 +1,7 @@
 import { Button, Form } from 'react-bootstrap';
 import React, { useContext, useState, useEffect } from 'react';
 import MyContext from '../context/MyContext';
-import { filterPlanets } from '../helpers';
+import { filterPlanets, orderPlanets } from '../helpers';
 import Filters from './Filters';
 
 function Header() {
@@ -11,14 +11,20 @@ function Header() {
       filters: { filterByNumericValues },
       setFilters,
       setFilteredPlanets,
+      filteredPlanets,
       planets,
     },
   } = useContext(MyContext);
+  const initialColumnOptions = ['population', 'orbital_period',
+    'diameter', 'rotation_period', 'surface_water'];
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
   const [value, setValue] = useState(0);
-  const [columnOptions, setColumnOptions] = useState(['population', 'orbital_period',
-    'diameter', 'rotation_period', 'surface_water']);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [columnOptions, setColumnOptions] = useState(initialColumnOptions);
+  const [sortColumn, setSortColumn] = useState('population');
+  const [sortOrder, setSortOrder] = useState('Ascendent');
+  const [orderBy, setOrderBy] = useState({ order: { column: 'population', sort: 'Ascendent' } });
   const operators = ['maior que', 'menor que', 'igual a'];
 
   const handleClick = () => {
@@ -35,7 +41,14 @@ function Header() {
 
   useEffect(() => {
     setColumn(columnOptions[0]);
+    if (!columnOptions.length) return setIsDisabled(true);
+    return setIsDisabled(false);
   }, [columnOptions]);
+
+  useEffect(() => {
+    const { order } = orderBy;
+    setFilteredPlanets([...orderPlanets(filteredPlanets, order.column, order.sort)]);
+  }, [orderBy]);
 
   return (
     <section className="headerForm">
@@ -69,6 +82,7 @@ function Header() {
         />
         <Button
           onClick={handleClick}
+          disabled={isDisabled}
         >
           Filter
         </Button>
@@ -81,6 +95,38 @@ function Header() {
           setColumnOptions={setColumnOptions}
         />
       ))}
+      <Button
+        onClick={() => {
+          setFilters({ filterByNumericValues: [] });
+          setColumnOptions(initialColumnOptions);
+        }}
+      >
+        Remover Filtros
+      </Button>
+      <Form>
+        <Form.Select
+          onChange={({ target }) => setSortColumn(target.value)}
+        >
+          {initialColumnOptions.map((c) => (
+            <option key={c}>{c}</option>
+          ))}
+        </Form.Select>
+        {['Ascendent', 'Descendent'].map((r) => (
+          <Form.Check
+            key={r}
+            type="radio"
+            name="radio"
+            value={r}
+            onChange={({ target }) => setSortOrder(target.value)}
+            label={r}
+          />
+        ))}
+        <Button
+          onClick={() => setOrderBy({ order: { column: sortColumn, sort: sortOrder } })}
+        >
+          Ordenar
+        </Button>
+      </Form>
     </section>
   );
 }
