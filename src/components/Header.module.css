@@ -39,6 +39,7 @@ label {
 
 .select {
   width: fit-content !important;
+  min-width: 150px;
 }
 
 .filterContainer {

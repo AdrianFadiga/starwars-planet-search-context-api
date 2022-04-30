@@ -109,6 +109,7 @@ function Header() {
             />
           </Form.Label>
           <Button
+            variant="outline-warning"
             size="sm"
             onClick={handleClick}
             disabled={isDisabled}
@@ -116,6 +117,7 @@ function Header() {
             Filter
           </Button>
           <Button
+            variant="outline-warning"
             size="sm"
             onClick={() => {
               setFilters({ filterByNumericValues: [] });
@@ -155,6 +157,7 @@ function Header() {
             ))}
           </div>
           <Button
+            variant="outline-warning"
             size="sm"
             onClick={() => setOrderBy({ order: { column: sortColumn, sort: sortOrder } })}
           >
