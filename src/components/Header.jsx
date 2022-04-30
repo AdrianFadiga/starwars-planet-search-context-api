@@ -3,6 +3,8 @@ import React, { useContext, useState, useEffect } from 'react';
 import MyContext from '../context/MyContext';
 import { filterPlanets, orderPlanets } from '../helpers';
 import Filters from './Filters';
+import style from './Header.module.css';
+import starWarsPng from '../images/starWars.png';
 
 function Header() {
   const {
@@ -51,82 +53,125 @@ function Header() {
   }, [orderBy]);
 
   return (
-    <section className="headerForm">
-      <div>
-        <input
-          type="text"
-          onChange={({ target }) => setNameFilter({
-            filterByName:
+    <section className={style.headerForm}>
+      <div className={style.nameFilter}>
+        <label htmlFor="nameFilter">
+          <img src={starWarsPng} alt="xablau" width="250px" />
+          <br />
+          <input
+            id="nameFilter"
+            type="text"
+            onChange={({ target }) => setNameFilter({
+              filterByName:
           { name: target.value.toLowerCase() },
-          })}
-        />
+            })}
+          />
+        </label>
       </div>
-      <Form>
-        <Form.Select
-          onChange={({ target }) => setColumn(target.value)}
-        >
-          {columnOptions.map((option) => (
-            <option key={option}>{option}</option>
-          ))}
-        </Form.Select>
-        <Form.Select
-          onChange={(({ target }) => setComparison(target.value))}
-        >
-          {operators.map((op) => (
-            <option key={op}>{op}</option>
-          ))}
-        </Form.Select>
-        <input
-          type="number"
-          onChange={({ target }) => setValue(target.value)}
-        />
-        <Button
-          onClick={handleClick}
-          disabled={isDisabled}
-        >
-          Filter
-        </Button>
-      </Form>
-      {filterByNumericValues.map((filter) => (
-        <Filters
-          filter={filter}
-          key={{ column }}
-          columnOptions={columnOptions}
-          setColumnOptions={setColumnOptions}
-        />
-      ))}
-      <Button
-        onClick={() => {
-          setFilters({ filterByNumericValues: [] });
-          setColumnOptions(initialColumnOptions);
-        }}
-      >
-        Remover Filtros
-      </Button>
-      <Form>
-        <Form.Select
-          onChange={({ target }) => setSortColumn(target.value)}
-        >
-          {initialColumnOptions.map((c) => (
-            <option key={c}>{c}</option>
-          ))}
-        </Form.Select>
-        {['Ascendent', 'Descendent'].map((r) => (
-          <Form.Check
-            key={r}
-            type="radio"
-            name="radio"
-            value={r}
-            onChange={({ target }) => setSortOrder(target.value)}
-            label={r}
+      <div className={style.formAndFilterContainer}>
+        <Form className={style.formContainer}>
+          <label htmlFor="column">
+            Column
+            <Form.Select
+              id="column"
+              className={style.select}
+              size="sm"
+              onChange={({ target }) => setColumn(target.value)}
+            >
+              {columnOptions.map((option) => (
+                <option key={option}>{option}</option>
+              ))}
+            </Form.Select>
+          </label>
+          <label htmlFor="comparison">
+            Comparison
+            <Form.Select
+              id="comparison"
+              className={style.select}
+              size="sm"
+              onChange={(({ target }) => setComparison(target.value))}
+            >
+              {operators.map((op) => (
+                <option key={op}>{op}</option>
+              ))}
+            </Form.Select>
+          </label>
+          <Form.Label
+            htmlFor="value"
+            className={style.inputLabel}
+          >
+            Value
+            <Form.Control
+              id="value"
+              size="sm"
+              type="number"
+              onChange={({ target }) => setValue(target.value)}
+            />
+          </Form.Label>
+          <Button
+            size="sm"
+            onClick={handleClick}
+            disabled={isDisabled}
+          >
+            Filter
+          </Button>
+          <Button
+            size="sm"
+            onClick={() => {
+              setFilters({ filterByNumericValues: [] });
+              setColumnOptions(initialColumnOptions);
+            }}
+          >
+            Remover Filtros
+          </Button>
+        </Form>
+        <Form className={style.filterContainer}>
+          <Form.Label
+            htmlFor="sortColumn"
+            className={style.inputLabel}
+          >
+            Order by
+            <Form.Select
+              id="sortColumn"
+              size="sm"
+              className={style.select}
+              onChange={({ target }) => setSortColumn(target.value)}
+            >
+              {initialColumnOptions.map((c) => (
+                <option key={c}>{c}</option>
+              ))}
+            </Form.Select>
+          </Form.Label>
+          <div className={style.sortOrder}>
+            {['Ascendent', 'Descendent'].map((r) => (
+              <Form.Check
+                key={r}
+                type="radio"
+                name="radio"
+                value={r}
+                onChange={({ target }) => setSortOrder(target.value)}
+                label={r}
+              />
+            ))}
+          </div>
+          <Button
+            size="sm"
+            onClick={() => setOrderBy({ order: { column: sortColumn, sort: sortOrder } })}
+          >
+            Ordenar
+          </Button>
+        </Form>
+      </div>
+      <div>
+        {filterByNumericValues.map((filter) => (
+          <Filters
+            filter={filter}
+            key={{ column }}
+            columnOptions={columnOptions}
+            setColumnOptions={setColumnOptions}
           />
         ))}
-        <Button
-          onClick={() => setOrderBy({ order: { column: sortColumn, sort: sortOrder } })}
-        >
-          Ordenar
-        </Button>
-      </Form>
+      </div>
     </section>
   );
 }

@@ -1,0 +1,55 @@
+.headerForm {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  width: 100%;
+}
+
+.nameFilter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+  padding-bottom: 30px;
+}
+
+label {
+  text-align: center;
+}
+
+.inputLabel {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0px !important;
+}
+
+.formAndFilterContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 50px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-end;
+}
+
+.select {
+  width: fit-content !important;
+}
+
+.filterContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  align-items: flex-end;
+}
+
+.sortOrder {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
