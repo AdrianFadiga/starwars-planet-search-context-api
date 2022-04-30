@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import Table from 'react-bootstrap/Table';
 import MyContext from '../context/MyContext';
 import Header from '../components/Header';
+import style from './Planets.module.css';
 
 function Planets() {
   const {
@@ -17,7 +18,7 @@ function Planets() {
     'Surface Water', 'Population', 'Films', 'Created', 'Edited', 'URL'];
 
   return (
-    <section className="PlanetsTable">
+    <section className={style.planetsPage}>
       <Header />
       <Table>
         <thead>
