@@ -1,5 +1,12 @@
 * {
-  color: rgb(171, 171, 171);
+    color: rgb(171, 171, 171);
+}
+
+
+body {
+  background-image: url(./images/background.png);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .App {
