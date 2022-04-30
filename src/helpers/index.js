@@ -9,6 +9,12 @@ export const filterPlanets = (planets, filterByNumericValues) => filterByNumeric
   .reduce((acc, curr) => defineComparison(acc, curr), planets);
 
 export const orderPlanets = (planets, column, sort) => {
-  if (sort === 'Ascendent') return planets.sort((a, b) => Number(a[column]) - Number(b[column]));
-  return planets.sort((a, b) => Number(b[column]) - Number(a[column]));
+  const unknownColumn = planets.filter((f) => f[column] === 'unknown');
+  const notUnknownColumn = planets.filter((f) => f[column] !== 'unknown');
+  if (sort === 'Ascendent') {
+    return [...notUnknownColumn.sort((a, b) => Number(a[column])
+    - Number(b[column])), ...unknownColumn];
+  }
+  return [...unknownColumn,
+    ...notUnknownColumn.sort((a, b) => Number(b[column]) - Number(a[column]))];
 };
