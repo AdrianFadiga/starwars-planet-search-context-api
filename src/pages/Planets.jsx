@@ -29,7 +29,6 @@ function Planets() {
                 className={style.tableRow}
               >
                 {th}
-
               </th>
             ))}
           </tr>
@@ -58,7 +57,7 @@ function Planets() {
                 <th>{surface_water}</th>
                 <th>{population}</th>
                 <th>
-                  <ul>
+                  <ul className={style.textAlignJustify}>
                     {films.map((f) => (
                       <li key={f}>{f}</li>
                     ))}

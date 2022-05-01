@@ -145,16 +145,21 @@ function Header() {
             </Form.Select>
           </Form.Label>
           <div className={style.sortOrder}>
-            {['Ascendent', 'Descendent'].map((r) => (
-              <Form.Check
-                key={r}
-                type="radio"
-                name="radio"
-                value={r}
-                onChange={({ target }) => setSortOrder(target.value)}
-                label={r}
-              />
-            ))}
+            <Form.Check
+              type="radio"
+              name="radio"
+              value="Ascendent"
+              onChange={({ target }) => setSortOrder(target.value)}
+              label="Ascendent"
+              checked={sortOrder === 'Ascendent'}
+            />
+            <Form.Check
+              type="radio"
+              name="radio"
+              value="Descendent"
+              onChange={({ target }) => setSortOrder(target.value)}
+              label="Descendent"
+            />
           </div>
           <Button
             variant="outline-warning"

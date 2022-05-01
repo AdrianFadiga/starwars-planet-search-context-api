@@ -1,6 +1,7 @@
 .planetsPage {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 thead {
@@ -13,4 +14,8 @@ tbody {
 
 .tableRow {
   color: rgb(171, 171, 171);
+}
+
+.textAlignJustify {
+  text-align: justify;
 }
