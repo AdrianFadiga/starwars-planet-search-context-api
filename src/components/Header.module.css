@@ -57,3 +57,7 @@ label {
   flex-direction: column;
   justify-content: flex-end;
 }
+
+.filtersContainer {
+  width: 20%;
+}

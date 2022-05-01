@@ -1,0 +1,11 @@
+.filter {
+  display: flex;
+  flex-direction: row;
+  color: rgb(171, 171, 171);
+  font-weight: 500;
+  gap: 7px;
+}
+
+.removeButton {
+  color: rgba(255, 0, 0, 0.684);
+}

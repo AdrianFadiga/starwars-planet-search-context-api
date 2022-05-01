@@ -165,7 +165,7 @@ function Header() {
           </Button>
         </Form>
       </div>
-      <div>
+      <div className={style.filtersContainer}>
         {filterByNumericValues.map((filter) => (
           <Filters
             filter={filter}

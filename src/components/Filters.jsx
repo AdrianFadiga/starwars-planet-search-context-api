@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
+import { MdOutlineRemoveCircle } from 'react-icons/md';
 import MyContext from '../context/MyContext';
+import style from './Filters.module.css';
 
 function Filters({
   filter: { column, value, comparison },
@@ -21,14 +23,12 @@ function Filters({
     setColumnOptions([...columnOptions, column]);
   };
   return (
-    <div>
+    <div className={style.filter}>
       <span>{`${column} ${comparison} ${value}`}</span>
-      <button
-        type="button"
+      <MdOutlineRemoveCircle
+        className={style.removeButton}
         onClick={handleClick}
-      >
-        x
-      </button>
+      />
     </div>
   );
 }
