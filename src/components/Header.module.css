@@ -16,6 +16,8 @@
 
 label {
   text-align: center;
+  color: rgb(171, 171, 171);
+  font-weight: 450;
 }
 
 .inputLabel {

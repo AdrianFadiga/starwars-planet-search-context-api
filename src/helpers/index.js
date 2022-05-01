@@ -12,9 +12,9 @@ export const orderPlanets = (planets, column, sort) => {
   const unknownColumn = planets.filter((f) => f[column] === 'unknown');
   const notUnknownColumn = planets.filter((f) => f[column] !== 'unknown');
   if (sort === 'Ascendent') {
-    return [...notUnknownColumn.sort((a, b) => Number(a[column])
-    - Number(b[column])), ...unknownColumn];
+    return [...unknownColumn, ...notUnknownColumn.sort((a, b) => Number(a[column])
+    - Number(b[column]))];
   }
-  return [...unknownColumn,
-    ...notUnknownColumn.sort((a, b) => Number(b[column]) - Number(a[column]))];
+  return [...notUnknownColumn.sort((a, b) => Number(b[column]) - Number(a[column])),
+    ...unknownColumn];
 };

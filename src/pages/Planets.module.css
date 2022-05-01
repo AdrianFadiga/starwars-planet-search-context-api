@@ -10,3 +10,7 @@ thead {
 tbody {
   background-color: black;
 }
+
+.tableRow {
+  color: rgb(171, 171, 171);
+}

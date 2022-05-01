@@ -24,7 +24,13 @@ function Planets() {
         <thead>
           <tr>
             {tableHeader.map((th) => (
-              <th key={th}>{th}</th>
+              <th
+                key={th}
+                className={style.tableRow}
+              >
+                {th}
+
+              </th>
             ))}
           </tr>
         </thead>
@@ -38,7 +44,10 @@ function Planets() {
               population, films,
               created, edited, url,
             }) => (
-              <tr key={name}>
+              <tr
+                className={style.tableRow}
+                key={name}
+              >
                 <th>{name}</th>
                 <th>{rotation_period}</th>
                 <th>{orbital_period}</th>
